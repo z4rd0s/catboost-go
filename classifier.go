@@ -26,9 +26,11 @@ func (bc *BinaryClassifer) PredictProba(floats [][]float32, floatLength int, cat
 	if err != nil {
 		return nil, err
 	}
+	/**
 	for i := range results {
 		results[i] = sigmoid(results[i])
 	}
+	**/
 	return results, nil
 }
 
