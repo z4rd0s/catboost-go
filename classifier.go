@@ -22,7 +22,7 @@ func LoadBinaryClassifierFromFile(filename string) (*BinaryClassifer, error) {
 
 // PredictProba returns sigmoid scores which could be interpreted like probability
 func (bc *BinaryClassifer) PredictProba(floats [][]float32, floatLength int, cats [][]string, catLength int) ([]float64, error) {
-	results, err := bc.Model.CalcModelPrediction(floats, floatLength, cats, catLength)
+	results, err := bc.Model.CalcModelPrediction(floats, floatLength, cats, catLength, 5)
 	if err != nil {
 		return nil, err
 	}
