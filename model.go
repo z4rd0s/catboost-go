@@ -82,14 +82,14 @@ func LoadFullModelFromFile(filename string) (*Model, error) {
 }
 
 // CalcModelPrediction returns raw predictions for specified data points
-func (model *Model) CalcModelPrediction(floats [][]float32, floatLength int, cats [][]string, catLength int) ([]float64, error) {
+func (model *Model) CalcModelPrediction(floats [][]float32, floatLength int, cats [][]string, catLength int, numClasses int) ([]float64, error) {
 	nSamples := len(floats)
-	results := make([]float64, nSamples)
+	results := make([]float64, numClasses)
 
 	floatsC := make([]*C.float, nSamples)
 	for i, v := range floats {
 		floatsC[i] = (*C.float)(C.calloc(C.sizeof_float, C.size_t(len(v))))
-		C.memcpy(unsafe.Pointer(floatsC[i]), unsafe.Pointer(&v[0]), C.size_t(len(v)) * C.sizeof_float)
+		C.memcpy(unsafe.Pointer(floatsC[i]), unsafe.Pointer(&v[0]), C.size_t(len(v))*C.sizeof_float)
 		defer C.free(unsafe.Pointer(floatsC[i]))
 	}
 
